@@ -1,66 +1,78 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# URL Shortener Microservice
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-blue)
 
-## About Laravel
+URL Shortener is a microservice that makes long web addresses short and easy to share. This microservice is part of a larger system for handling URL shortening and authentication. It follows a microservice architecture, allowing you to create, update, and delete short URLs.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Note 
+This project repo responsible for shortening long web addresses, managing short URLs, and handling redirections to the original web addresses. This microservice works in conjunction with the authentication microservice [MS_Urlshort_Auth](https:github.com/ms_urlshort_auth)  to ensure secure URL management.
+## Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-   Create short URLs from long web addresses.
+-   Manage your short URLs with authentication (handled by [MS_Urlshort_Auth](https:github.com/ms_urlshort_auth) ).
+-   Retrieve and update short URL details.
+-   Redirect to the original URL when accessing the short URL.
 
-## Learning Laravel
+## Table of Contents
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+-   [Getting Started](#getting-started)
+-   [API Endpoints](#api-endpoints)
+-   [Authentication](#authentication)
+-   [License](#license)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Getting Started
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+To get started with the URL Shortener microservice, follow these steps:
 
-## Laravel Sponsors
+1. Clone this repository:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+    ```bash
+    git clone https://github.com/favourdev1/Ms_UrlShort_shortener.git
+    cd Ms_UrlShort_shortener
+    ```
 
-### Premium Partners
+2. Install the required dependencies:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+    ```bash
+    composer install
+    ```
 
-## Contributing
+3. Set up your database and configure the database connection in your .env file.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+4. Run the migrations and seed the database:
 
-## Code of Conduct
+    ```bash
+    php artisan migrate --seed
+    ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+5. Start the Laravel development server:
+    ```bash
+    php artisan serve 
+    ```
+    or
+      ```bash
+    php artisan serve --port=8001
+    ```
+6. You can now access the URL Shortener microservice API at http://localhost:8000 or localhost:8001 depending on the port number you provided.
 
-## Security Vulnerabilities
+## API Endpoints
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+The URL Shortener microservice provides the following API endpoints:
 
-## License
+- GET /api/shorten - Retrieve a list of your short URLs.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- POST /api/shorten - Create a new short URL.
+
+- GET /api/shorten/{id} - Retrieve details of a specific short URL.
+
+- PUT /api/shorten/{id} - Update a short URL.
+
+- DELETE /api/shorten/{id} - Delete a short URL.
+
+- GET /{shortUrl} - Redirect to the original URL.
+
+
+## AUTHENTICATION
+Authentication for this microservice is handled by the [MS_Urlshort_Auth](https:github.com/ms_urlshort_auth) repository. Ensure you have the authentication service set up and running to secure your short URLs.
